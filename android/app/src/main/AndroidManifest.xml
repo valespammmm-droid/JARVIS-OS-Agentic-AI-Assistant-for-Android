@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Network & Communication -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Assistant Core Audio Listening -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- Google Assistant style bottom overlay window -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!-- Keep listener service running in background -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Boot receiver to auto-start wake word engine on device reboot -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    
+    <!-- Battery optimization exemption request -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
+    <!-- Notification permission for API 33+ -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Phone & Communication -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+
+    <!-- Camera & Gallery -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- System Write Settings & Alarms -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+
+    <!-- Signature permission for internal broadcasts (SHOW_ASSISTANT, HIDE_ASSISTANT, RESUME_DETECTION) -->
+    <permission android:name="com.jarvis.os.permission.INTERNAL_BROADCAST" android:protectionLevel="signature" />
+    <uses-permission android:name="com.jarvis.os.permission.INTERNAL_BROADCAST" />
+
+    <!-- Declare package visibility for Speech Recognition Service on Android 11+ -->
+    <queries>
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+    </queries>
+
+    <application
+        android:name=".JarvisApp"
+        android:allowBackup="true"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:label="JARVIS OS"
+        android:roundIcon="@android:drawable/ic_menu_info_details"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.JarvisOS"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="35">
+        
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.JarvisOS">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Wake word foreground service -->
+        <service
+            android:name=".core.background.WakeWordForegroundService"
+            android:exported="false"
+            android:foregroundServiceType="microphone"
+            android:stopWithTask="false"
+            android:permission="com.jarvis.os.permission.INTERNAL_BROADCAST">
+            <intent-filter>
+                <action android:name="com.jarvis.os.action.START_SERVICE" />
+                <action android:name="com.jarvis.os.action.STOP_SERVICE" />
+                <action android:name="com.jarvis.os.action.PAUSE_DETECTION" />
+                <action android:name="com.jarvis.os.action.RESUME_DETECTION" />
+            </intent-filter>
+        </service>
+        
+        <!-- Assistant overlay foreground service -->
+        <service
+            android:name=".feature.assistant.AssistantOverlayService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse"
+            android:stopWithTask="false"
+            android:permission="com.jarvis.os.permission.INTERNAL_BROADCAST">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="voice_assistant_overlay" />
+            <intent-filter>
+                <action android:name="com.jarvis.os.action.SHOW_ASSISTANT" />
+                <action android:name="com.jarvis.os.action.HIDE_ASSISTANT" />
+            </intent-filter>
+        </service>
+        
+        <!-- Boot receiver to auto-start wake word service -->
+        <receiver
+            android:name=".core.background.BootReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:directBootAware="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Accessibility Service for JARVIS OS agentic UI automation -->
+        <service
+            android:name=".core.background.JarvisAccessibilityService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:exported="true"
+            android:label="JARVIS Automation Service">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+        <!-- Notification Listener Service for reading notifications & WhatsApp messages -->
+        <service
+            android:name=".core.background.JarvisNotificationListenerService"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+            android:exported="true"
+            android:label="JARVIS Notification Service">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
+    </application>
+
+</manifest>

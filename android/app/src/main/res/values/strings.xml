@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">JARVIS OS</string>
+    <string name="accessibility_service_description">Enables JARVIS OS to perform agentic UI automation, screen navigation, hands-free gestures, and phone control on your behalf.</string>
+</resources>
