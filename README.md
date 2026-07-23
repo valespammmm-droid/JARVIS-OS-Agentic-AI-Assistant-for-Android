@@ -4,6 +4,35 @@ JARVIS OS is a production-grade, autonomous **Agentic AI System** for Android (S
 
 ---
 
+<p align="center">
+  <img src="assets/banner.png" width="100%">
+</p>
+
+<p align="center">
+
+![Android](https://img.shields.io/badge/Android-10%2B-green)
+![Kotlin](https://img.shields.io/badge/Kotlin-2.0-purple)
+![Jetpack Compose](https://img.shields.io/badge/Compose-Material3-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688)
+![CrewAI](https://img.shields.io/badge/CrewAI-Agentic-red)
+![License](https://img.shields.io/badge/License-MIT-blue)
+
+</p>
+
+---
+
+## 📱 Preview
+
+<p align="center">
+
+![DEMO IMAGE 1](https://github.com/VarsshanCoder/JARVIS-OS-Agentic-AI-Assistant-for-Android/blob/main/preview/Screenshot%202026-07-23%20170903.png)
+![DEMO IMAGE 2](https://github.com/VarsshanCoder/JARVIS-OS-Agentic-AI-Assistant-for-Android/blob/main/preview/Screenshot%202026-07-23%20170914.png)
+![DEMO IMAGE 3](https://github.com/VarsshanCoder/JARVIS-OS-Agentic-AI-Assistant-for-Android/blob/main/preview/Screenshot%202026-07-23%20170941.png)
+
+</p>
+
+---
+
 ## 🏛️ System Architecture
 
 ```
