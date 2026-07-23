@@ -29,13 +29,7 @@ JARVIS OS is a production-grade, autonomous **Agentic AI System** for Android (S
 ![DEMO IMAGE 2](https://github.com/VarsshanCoder/JARVIS-OS-Agentic-AI-Assistant-for-Android/blob/main/preview/Screenshot%202026-07-23%20170914.png)
 ![DEMO IMAGE 3](https://github.com/VarsshanCoder/JARVIS-OS-Agentic-AI-Assistant-for-Android/blob/main/preview/Screenshot%202026-07-23%20170941.png)
 
-<h2>🎥 Demo Video</h2>
-
-<video controls width="900">
-  <source src="preview/Screen%20Recording%202026-07-23%20171128.mp4" type="video/mp4">
-</video>
-
-</p>
+![CLICK FOR VIDEO](https://github.com/VarsshanCoder/JARVIS-OS-Agentic-AI-Assistant-for-Android/blob/main/preview/Screen%20Recording%202026-07-23%20171128.mp4)
 
 ---
 
